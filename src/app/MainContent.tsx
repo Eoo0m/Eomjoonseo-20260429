@@ -8,6 +8,7 @@ type Product = {
   main_image: string;
   url: string;
   category?: string;
+  price?: string;
   tags: Record<string, string[]>;
   highlightReviews?: Record<string, string[]>;
 };
@@ -191,6 +192,11 @@ export default function MainContent({ defaultProducts, tags }: Props) {
                 <h3 className="text-sm text-gray-800 font-medium line-clamp-2 leading-snug">
                   {product.title}
                 </h3>
+                {product.price && (
+                  <p className="mt-1 text-sm font-bold text-red-600">
+                    {product.price}원
+                  </p>
+                )}
 
                 {reviewLine && (
                   <p className="mt-2 text-xs leading-relaxed animate-fade-in">

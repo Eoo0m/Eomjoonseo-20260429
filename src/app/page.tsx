@@ -6,6 +6,7 @@ type Product = {
   main_image: string;
   url: string;
   category?: string;
+  price?: string;
   tags: Record<string, string[]>;
 };
 
