@@ -51,7 +51,6 @@ export default function MainContent({ defaultProducts, tags }: Props) {
       });
       setIsSearchMode(true);
 
-      // 첫 번째 리뷰 태그를 자동 선택
       if (data.review_tags.length > 0) {
         setSelectedTag(data.review_tags[0]);
       }
@@ -89,19 +88,19 @@ export default function MainContent({ defaultProducts, tags }: Props) {
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="예: 가성비 좋은 간편식, 아이 간식 추천, 다이어트 음료..."
-            className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-white/50 text-sm"
+            className="flex-1 px-4 py-3 rounded-xl bg-gray-100 border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-400 text-sm"
           />
           <button
             onClick={handleSearch}
             disabled={isSearching}
-            className="px-6 py-3 rounded-xl bg-white text-black font-medium text-sm hover:bg-white/90 transition-colors disabled:opacity-50 cursor-pointer"
+            className="px-6 py-3 rounded-xl bg-red-600 text-white font-medium text-sm hover:bg-red-700 transition-colors disabled:opacity-50 cursor-pointer"
           >
             {isSearching ? "..." : "검색"}
           </button>
           {isSearchMode && (
             <button
               onClick={handleReset}
-              className="px-4 py-3 rounded-xl bg-white/10 text-white/70 text-sm hover:bg-white/20 transition-colors cursor-pointer"
+              className="px-4 py-3 rounded-xl bg-gray-100 text-gray-600 text-sm hover:bg-gray-200 transition-colors cursor-pointer"
             >
               초기화
             </button>
@@ -114,7 +113,7 @@ export default function MainContent({ defaultProducts, tags }: Props) {
             {searchInfo.food_categories.map((cat) => (
               <span
                 key={cat}
-                className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs"
+                className="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs"
               >
                 {cat}
               </span>
@@ -122,7 +121,7 @@ export default function MainContent({ defaultProducts, tags }: Props) {
             {searchInfo.review_tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-300 text-xs"
+                className="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs"
               >
                 {tag}
               </span>
@@ -132,7 +131,7 @@ export default function MainContent({ defaultProducts, tags }: Props) {
       </div>
 
       {/* Tag Bar */}
-      <div className="sticky top-[73px] z-40 bg-black/95 backdrop-blur-sm py-4 -mx-4 px-4 border-b border-white/5">
+      <div className="sticky top-[73px] z-40 bg-white/95 backdrop-blur-sm py-4 -mx-4 px-4 border-b border-gray-100">
         <div className="flex flex-wrap gap-2 justify-center">
           {tags.map((tag) => (
             <button
@@ -140,8 +139,8 @@ export default function MainContent({ defaultProducts, tags }: Props) {
               onClick={() => handleTagClick(tag)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
                 selectedTag === tag
-                  ? "bg-white text-black"
-                  : "bg-white/10 text-white/80 hover:bg-white/20"
+                  ? "bg-red-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               {tag}
@@ -153,7 +152,6 @@ export default function MainContent({ defaultProducts, tags }: Props) {
       {/* Product Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
         {products.map((product, idx) => {
-          // 검색 모드에서는 highlightReviews 우선 사용
           const highlightReview =
             selectedTag && product.highlightReviews?.[selectedTag]?.[0];
           const tagReview =
@@ -172,7 +170,7 @@ export default function MainContent({ defaultProducts, tags }: Props) {
                 dimmed ? "opacity-30" : "opacity-100"
               }`}
             >
-              <div className="relative aspect-square bg-white/5 overflow-hidden rounded-xl">
+              <div className="relative aspect-square bg-gray-50 overflow-hidden rounded-xl border border-gray-100">
                 {product.main_image && (
                   <Image
                     src={product.main_image}
@@ -182,22 +180,21 @@ export default function MainContent({ defaultProducts, tags }: Props) {
                     className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                   />
                 )}
-                {/* Category Badge */}
                 {product.category && (
-                  <span className="absolute top-2 left-2 px-2 py-0.5 rounded bg-white/15 text-white/70 text-[10px] backdrop-blur-sm">
+                  <span className="absolute top-2 left-2 px-2 py-0.5 rounded bg-white/80 text-gray-600 text-[10px] backdrop-blur-sm border border-gray-200">
                     {product.category}
                   </span>
                 )}
               </div>
 
               <div className="pt-3 pb-2 px-1">
-                <h3 className="text-sm text-white/90 font-medium line-clamp-2 leading-snug">
+                <h3 className="text-sm text-gray-800 font-medium line-clamp-2 leading-snug">
                   {product.title}
                 </h3>
 
                 {reviewLine && (
                   <p className="mt-2 text-xs leading-relaxed animate-fade-in">
-                    <span className="bg-yellow-400/20 text-yellow-300 px-1.5 py-0.5 rounded">
+                    <span className="bg-red-50 text-red-700 px-1.5 py-0.5 rounded">
                       {reviewLine}
                     </span>
                   </p>
@@ -209,7 +206,7 @@ export default function MainContent({ defaultProducts, tags }: Props) {
       </div>
 
       {products.length === 0 && (
-        <div className="text-center text-white/40 py-20">
+        <div className="text-center text-gray-400 py-20">
           검색 결과가 없습니다.
         </div>
       )}

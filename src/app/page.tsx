@@ -29,10 +29,10 @@ export default function Home() {
   const top20 = selectTop20(products as Product[]);
 
   return (
-    <div className="min-h-screen bg-black">
-      <header className="sticky top-0 z-50 bg-black/95 backdrop-blur-sm border-b border-white/10">
+    <div className="min-h-screen bg-white">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-5">
-          <h1 className="text-2xl font-bold tracking-[0.3em] text-white text-center">
+          <h1 className="text-2xl font-bold tracking-[0.3em] text-red-600 text-center">
             REVIEWPICK
           </h1>
         </div>

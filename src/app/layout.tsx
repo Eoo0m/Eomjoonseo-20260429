@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${geistSans.variable} antialiased`}>
-      <body className="min-h-screen bg-black text-white">{children}</body>
+      <body className="min-h-screen bg-white text-gray-900">{children}</body>
     </html>
   );
 }
